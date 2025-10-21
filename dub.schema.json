@@ -1,0 +1,214 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dlang.org/dub.schema.json",
+  "title": "DUB Package Description Schema",
+  "description": "JSON Schema for validating DUB package description files.",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "description": "Name of the package, used to uniquely identify the package. https://dub.pm/dub-reference/package_settings/#name",
+      "$ref": "#/$defs/nameSpec"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the package. https://dub.pm/dub-reference/package_settings/#description"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the project website. https://dub.pm/dub-reference/package_settings/#homepage"
+    },
+    "authors": {
+      "type": "array",
+      "description": "List of project authors. https://dub.pm/dub-reference/package_settings/#authors",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "copyright": {
+      "type": "string",
+      "description": "Copyright declaration string. https://dub.pm/dub-reference/package_settings/#copyright"
+    },
+    "license": {
+      "type": "string",
+      "description": "License(s) under which the project can be used. https://dub.pm/dub-reference/package_settings/#license"
+    },
+    "toolchainRequirements": {
+      "type": "object",
+      "description": "The package can specify version requirements for the toolchain. https://dub.pm/dub-reference/package_settings/#toolchainrequirements",
+      "properties": {
+        "dub": {
+          "oneOf": [
+            { "$ref": "#/$defs/versionSpec" },
+            { "type": "string", "pattern": "no" }
+          ]
+        },
+        "frontend": { "$ref": "#/$defs/versionSpec" },
+        "dmd": {
+          "oneOf": [
+            { "$ref": "#/$defs/versionSpec" },
+            { "type": "string", "pattern": "no" }
+          ]
+        },
+        "gdc": {
+          "oneOf": [
+            { "$ref": "#/$defs/versionSpec" },
+            { "type": "string", "pattern": "no" }
+          ]
+        },
+        "ldc": {
+          "oneOf": [
+            { "$ref": "#/$defs/versionSpec" },
+            { "type": "string", "pattern": "no" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "subPackages": {
+      "type": "array",
+      "description": "Defines an array of sub-packages defined in the same directory as the root project. https://dub.pm/dub-reference/package_settings/#subpackages",
+      "items": { "type": "string", "minItems": 1, "uniqueItems": true }
+    },
+    "configurations": {
+      "type": "array",
+      "description": "Speficies an optional list of build configurations. https://dub.pm/dub-reference/package_settings/#configurations",
+      "items": { "$ref": "#/$defs/configurationObject" }
+    },
+    "buildTypes": {
+      "description": "Defines additional custom build types or overrides the default ones. https://dub.pm/dub-reference/package_settings/#buildtypes",
+      "$ref": "#/$defs/buildObject"
+    },
+    "x:ddoxFilterArgs": {
+      "type": "array",
+      "description": "Specifies a list of command line flags usable for controlling filter behavior for --build=ddox [experimental]. https://dub.pm/dub-reference/package_settings/#xddoxfilterargs",
+      "items": { "type": "string", "minItems": 1, "uniqueItems": true }
+    },
+
+    "dependencies": {
+      "type": "object",
+      "description": "List of project dependencies. https://dub.pm/dub-reference/build_settings/#dependencies",
+      "patternProperties": {
+        "^[a-z_-]+$": { "$ref": "#/$defs/dependencyObject" }
+      }
+    },
+    "systemDependencies": {
+      "type": "string",
+      "description": "A textual description of the required system dependencies (external C libraries) required by the package. https://dub.pm/dub-reference/build_settings/#systemdependencies"
+    },
+    "targetType": {
+      "type": "string",
+      "description": "Specifies a specific target type. https://dub.pm/dub-reference/build_settings/#targettype",
+      "enum": [
+        "none",
+        "autodetect",
+        "executable",
+        "library",
+        "sourceLibrary",
+        "staticLibrary",
+        "dynamicLibrary"
+      ]
+    },
+    "targetName": {
+      "type": "string",
+      "description": "Sets the base name of the output file. https://dub.pm/dub-reference/build_settings/#targetname"
+    },
+    "targetPath": {
+      "type": "string",
+      "description": "The destination path of the output binary. https://dub.pm/dub-reference/build_settings/#targetpath"
+    },
+    "workingDirectory": {
+      "type": "string",
+      "description": "A fixed working directory from which the generated executable will be run. https://dub.pm/dub-reference/build_settings/#workingdirectory"
+    }
+  },
+
+  "$defs": {
+    "nameSpec": {
+      "type": "string",
+      "pattern": "^[a-z_-]+$"
+    },
+    "versionSpec": {
+      "type": "string",
+      "description": "Version specifiers define a range of acceptable versions. (e.g., '~>1.2.0', '>=1.0.0'). https://dub.pm/dub-reference/dependencies/",
+      "pattern": "^(\\*|(==|~>|>=|<)\\s*\\d+(\\.\\d+)*(\\s+(==|~>|>=|<)\\s*\\d+(\\.\\d+)*)?)$"
+    },
+    "configurationObject": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "pattern": "^[a-z0-9_-]+$" }
+      },
+      "patternProperties": {
+        "^[a-zA-Z]+$": {}
+      }
+    },
+    "buildObject": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z]+$": {}
+      }
+    },
+    "dependencyObject": {
+      "description": "A dependency version specification can either be a simple string for the version or a more complex variant.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/versionSpec"
+        },
+        {
+          "type": "object",
+          "description": "A detailed dependency specification.",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Use a folder to source a package from. References a package in a specific path."
+            },
+            "repository": {
+              "type": "string",
+              "description": "Clone a git repository as dependency. (e.g., 'git+https://...')."
+            },
+            "version": {
+              "$ref": "#/$defs/versionSpec",
+              "description": "The version specification as used for the simple form."
+            },
+            "optional": {
+              "type": "boolean",
+              "description": "Indicates an optional dependency."
+            },
+            "default": {
+              "type": "boolean",
+              "description": "Choose an optional dependency by default."
+            },
+            "dflags": {
+              "$ref": "#/$defs/commandArray",
+              "description": "Build settings fields."
+            }
+          },
+          "oneOf": [
+            { "required": ["path"] },
+            { "required": ["repository"] },
+            { "required": ["version"] }
+          ],
+          "dependentRequired": { "default": ["optional"] },
+          "if": {
+            "properties": {
+              "optional": { "const": false }
+            }
+          },
+          "then": { "properties": { "default": { "const": false } } },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "commandArray": {
+      "type": "array",
+      "description": "An array of shell commands to execute.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
