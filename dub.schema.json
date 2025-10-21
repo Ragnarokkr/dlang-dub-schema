@@ -123,6 +123,16 @@
     "workingDirectory": {
       "type": "string",
       "description": "A fixed working directory from which the generated executable will be run. https://dub.pm/dub-reference/build_settings/#workingdirectory"
+    },
+    "subConfigurations": {
+      "type": "object",
+      "description": "Locks the dependencies to specific configurations. https://dub.pm/dub-reference/build_settings/#subconfigurations",
+      "patternProperties": {
+        "^:?([a-z]+(?:[-_\/][a-z]+)*)$": {
+          "description": "Map from package name to configuration name.",
+          "$ref": "#/$defs/configurationNameSpec"
+        }
+      }
     }
   },
 
@@ -140,11 +150,16 @@
       "type": "object",
       "required": ["name"],
       "properties": {
-        "name": { "type": "string", "minLength": 1, "pattern": "^[a-z0-9_-]+$" }
+        "name": { "$ref": "#/$defs/configurationNameSpec", "minLength": 1 }
       },
       "patternProperties": {
         "^[a-zA-Z]+$": {}
       }
+    },
+    "configurationNameSpec": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9_-]+$"
     },
     "buildObject": {
       "type": "object",
