@@ -133,9 +133,26 @@
           "$ref": "#/$defs/configurationNameSpec"
         }
       }
+    },
+    "buildRequirements": {
+      "type": "array",
+      "description": "List of required settings for the build process. https://dub.pm/dub-reference/build_settings/#buildrequirements",
+      "items": {
+        "type": "string",
+        "enum": [
+          "allowWarnings",
+          "silenceWarnings",
+          "disallowDeprecations",
+          "silenceDeprecations",
+          "disallowInlining",
+          "disallowOptimization",
+          "requireBoundsCheck",
+          "requireContracts",
+          "noDefaultFlags"
+        ]
+      }
     }
   },
-
   "$defs": {
     "nameSpec": {
       "type": "string",
