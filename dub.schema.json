@@ -6,6 +6,11 @@
   "type": "object",
   "required": ["name"],
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "The JSON schema to use for validation",
+      "format": "uri"
+    },
     "name": {
       "description": "Name of the package, used to uniquely identify the package. https://dub.pm/dub-reference/package_settings/#name",
       "$ref": "#/$defs/nameSpec"
@@ -151,8 +156,51 @@
           "noDefaultFlags"
         ]
       }
+    },
+    "buildOptions": {
+      "type": "array",
+      "description": "List of build option identifiers. https://dub.pm/dub-reference/build_settings/#buildrequirements",
+      "items": {
+        "type": "string",
+        "enum": [
+          "debugMode",
+          "releaseMode",
+          "coverage",
+          "coverageCTFE",
+          "debugInfo",
+          "debugInfoC",
+          "alwaysStackFrame",
+          "stackStomping",
+          "inline",
+          "noBoundsCheck",
+          "optimize",
+          "profile",
+          "profileGC",
+          "unittests",
+          "verbose",
+          "ignoreUnknownPragmas",
+          "syntaxOnly",
+          "warnings",
+          "warningsAsErrors",
+          "ignoreDeprecations",
+          "deprecationWarnings",
+          "deprecationErrors",
+          "betterC",
+          "lowmem"
+        ]
+      },
+      "minItems": 1
     }
   },
+  "patternProperties": {
+    "^libs(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?$": {
+      "type": "array",
+      "description": "A list of external library names. https://dub.pm/dub-reference/build_settings/#libs",
+      "items": { "type": "string" },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false,
   "$defs": {
     "nameSpec": {
       "type": "string",
