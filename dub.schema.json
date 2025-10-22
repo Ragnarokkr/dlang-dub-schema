@@ -251,13 +251,18 @@
       "description": "A list of shell commands that is executed always after the project is run. https://dub.pm/dub-reference/build_settings/#postruncommands",
       "$ref": "#/$defs/commandArray"
     },
-    "lflags": {
-      "description": "Additional flags passed to the linker. https://dub.pm/dub-reference/build_settings/#lflags",
-      "$ref": "#/$defs/commandArray"
-    },
     "injectSourceFiles": {
       "description": "Source files that will be compiled into binaries that depend on this package, no matter what targetType the package has. https://dub.pm/dub-reference/build_settings/#injectsourcefiles",
       "$ref": "#/$defs/stringArray"
+    },
+    "environments": {
+      "type": "object",
+      "description": "Define environment variables. https://dub.pm/dub-reference/environment_variables/",
+      "patternProperties": {
+        "^[a-zA-Z0-9_]+$": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "minProperties": 1
     }
   },
   "patternProperties": {
@@ -271,6 +276,10 @@
     },
     "^dflags(-(?:dmd|gnu|ldc|sdc))?$": {
       "description": "Additional flags passed to the D compiler. https://dub.pm/dub-reference/build_settings/#dflags",
+      "$ref": "#/$defs/commandArray"
+    },
+    "^lflags(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?": {
+      "description": "Additional flags passed to the linker. https://dub.pm/dub-reference/build_settings/#lflags",
       "$ref": "#/$defs/commandArray"
     }
   },
@@ -307,7 +316,8 @@
           "type": "object"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "minProperties": 1
     },
     "dependencyObject": {
       "description": "A dependency version specification can either be a simple string for the version or a more complex variant.",
