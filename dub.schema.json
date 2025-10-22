@@ -253,6 +253,33 @@
       },
       "minItems": 1,
       "uniqueItems": true
+    },
+    "importPaths": {
+      "type": "array",
+      "description": "Additional import paths to search for D modules. https://dub.pm/dub-reference/build_settings/#importpaths",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "stringImportPaths": {
+      "type": "array",
+      "description": "Additional import paths to search for string imports. https://dub.pm/dub-reference/build_settings/#stringimportpaths",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "cImportPaths": {
+      "type": "array",
+      "description": "Additional import paths to search for C files. https://dub.pm/dub-reference/build_settings/#cimportpaths",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
     }
   },
   "patternProperties": {
@@ -264,7 +291,7 @@
     },
     "^copyFiles(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?$": {
       "type": "array",
-      "description": "A list of globs matching files or directories to be copied to targetPath. https://dub.pm/dub-reference/build_settings/#copyFiles",
+      "description": "A list of globs matching files or directories to be copied to targetPath. https://dub.pm/dub-reference/build_settings/#copyfiles",
       "items": { "type": "string" },
       "minItems": 1
     }
