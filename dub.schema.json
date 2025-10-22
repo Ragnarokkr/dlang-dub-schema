@@ -222,12 +222,49 @@
       "items": { "type": "string" },
       "minItems": 1,
       "uniqueItems": true
+    },
+    "mainSourceFile": {
+      "type": "string",
+      "description": "Determines the file that contains the main() function. https://dub.pm/dub-reference/build_settings/#mainSourceFile"
+    },
+    "extraDependencyFiles": {
+      "type": "array",
+      "description": "A list of globs matching files to be checked for rebuilding the dub project. https://dub.pm/dub-reference/build_settings/#extradependencyfiles",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "versions": {
+      "type": "array",
+      "description": "A list of D's custom conditional compilation versions to be defined during compilation. https://dub.pm/dub-reference/build_settings/#versions",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "debugVersions": {
+      "type": "array",
+      "description": "A list of D's custom debug condition identifiers to be defined during compilation. https://dub.pm/dub-reference/build_settings/#debugversions",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
     }
   },
   "patternProperties": {
     "^libs(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?$": {
       "type": "array",
       "description": "A list of external library names. https://dub.pm/dub-reference/build_settings/#libs",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "^copyFiles(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?$": {
+      "type": "array",
+      "description": "A list of globs matching files or directories to be copied to targetPath. https://dub.pm/dub-reference/build_settings/#copyFiles",
       "items": { "type": "string" },
       "minItems": 1
     }
