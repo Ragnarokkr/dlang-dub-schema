@@ -25,13 +25,8 @@
       "description": "URL of the project website. https://dub.pm/dub-reference/package_settings/#homepage"
     },
     "authors": {
-      "type": "array",
       "description": "List of project authors. https://dub.pm/dub-reference/package_settings/#authors",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "copyright": {
       "type": "string",
@@ -74,14 +69,10 @@
       "additionalProperties": false
     },
     "subPackages": {
-      "type": "array",
       "description": "Defines an array of sub-packages defined in the same directory as the root project. https://dub.pm/dub-reference/package_settings/#subpackages",
-      "items": { "type": "string" },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "configurations": {
-      "type": "array",
       "description": "Speficies an optional list of build configurations. https://dub.pm/dub-reference/package_settings/#configurations",
       "items": { "$ref": "#/$defs/configurationObject" }
     },
@@ -90,11 +81,8 @@
       "$ref": "#/$defs/buildObject"
     },
     "x:ddoxFilterArgs": {
-      "type": "array",
       "description": "Specifies a list of command line flags usable for controlling filter behavior for --build=ddox [experimental]. https://dub.pm/dub-reference/package_settings/#xddoxfilterargs",
-      "items": { "type": "string" },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
 
     "dependencies": {
@@ -196,104 +184,58 @@
       "minItems": 1
     },
     "frameworks": {
-      "type": "array",
       "description": "A list of external framework names - Used only for darwin platforms. https://dub.pm/dub-reference/build_settings/#frameworks",
-      "items": { "type": "string" },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "sourceFiles": {
-      "type": "array",
       "description": "Additional files passed to the compiler. https://dub.pm/dub-reference/build_settings/#sourcefiles",
-      "items": { "type": "string" },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "sourcePaths": {
-      "type": "array",
       "description": "Allows to customize the path where to look for source files. https://dub.pm/dub-reference/build_settings/#sourcepaths",
-      "items": { "type": "string" },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "excludedSourceFiles": {
-      "type": "array",
       "description": "Files that should be removed for the set of already added source files (takes precedence over \"sourceFiles\" and \"sourcePaths\"). https://dub.pm/dub-reference/build_settings/#excludedsourcefiles",
-      "items": { "type": "string" },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "mainSourceFile": {
       "type": "string",
       "description": "Determines the file that contains the main() function. https://dub.pm/dub-reference/build_settings/#mainSourceFile"
     },
     "extraDependencyFiles": {
-      "type": "array",
       "description": "A list of globs matching files to be checked for rebuilding the dub project. https://dub.pm/dub-reference/build_settings/#extradependencyfiles",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "versions": {
-      "type": "array",
       "description": "A list of D's custom conditional compilation versions to be defined during compilation. https://dub.pm/dub-reference/build_settings/#versions",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "debugVersions": {
-      "type": "array",
       "description": "A list of D's custom debug condition identifiers to be defined during compilation. https://dub.pm/dub-reference/build_settings/#debugversions",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "importPaths": {
-      "type": "array",
       "description": "Additional import paths to search for D modules. https://dub.pm/dub-reference/build_settings/#importpaths",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "stringImportPaths": {
-      "type": "array",
       "description": "Additional import paths to search for string imports. https://dub.pm/dub-reference/build_settings/#stringimportpaths",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     },
     "cImportPaths": {
-      "type": "array",
       "description": "Additional import paths to search for C files. https://dub.pm/dub-reference/build_settings/#cimportpaths",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1,
-      "uniqueItems": true
+      "$ref": "#/$defs/stringArray"
     }
   },
   "patternProperties": {
     "^libs(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?$": {
-      "type": "array",
       "description": "A list of external library names. https://dub.pm/dub-reference/build_settings/#libs",
-      "items": { "type": "string" },
-      "minItems": 1
+      "$ref": "#/$defs/stringArray"
     },
     "^copyFiles(-(?:windows|win32|win64|linux|apple|osx|ios|tvos|watchos|visionos|freebsd|openbsd|netbsd|dragonflybsd|bsd|solaris|posix|aix|haiku|skyos|sysv3|sysv4|hurd|android|emscripten|playstation|playstation4|freestanding))?(-(?:x86|x86_64|arm|arm_thumb|arm_softfloat|arm_softfp|arm_hardfloat|aarch64|asmjs|avr|epiphany|ppc|ppc_softfloat|ppc_hardfloat|ppc64|ia64|mips32|mips64|mips_o32|mips_n32|mips_o64|mips_n64|mips_eabi|mips_softfloat|mips_hardfloat|msp430|nvptx|nvptx64|riscv32|riscv64|sparc|sparc_v8plus|sparc_softfloat|sparc_hardfloat|sparc64|s390|systemz|hppa|hppa64|sh|webassembly|wasi|xtensa|alpha|alpha_softfloat|alpha_hardfloat))?(-(?:dmd|gnu|ldc|sdc))?$": {
-      "type": "array",
       "description": "A list of globs matching files or directories to be copied to targetPath. https://dub.pm/dub-reference/build_settings/#copyfiles",
-      "items": { "type": "string" },
-      "minItems": 1
+      "$ref": "#/$defs/stringArray"
     }
   },
   "additionalProperties": false,
@@ -385,6 +327,14 @@
       "items": {
         "type": "string"
       }
+    },
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
     }
   }
 }
